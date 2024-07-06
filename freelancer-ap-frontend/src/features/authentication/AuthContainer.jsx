@@ -4,6 +4,7 @@ import CheckOTPform from "./CheckOTPform";
 import { useMutation } from "@tanstack/react-query";
 import { getOtp } from "../../services/authService";
 import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
 
 // -------------------------------------
 
@@ -15,31 +16,37 @@ function AuthContainer() {
   } = useMutation({
     mutationFn: getOtp,
   });
-  const sendOtpHandler = async (e) => {
+
+  const sendOtpHandler = async (data) => {
     //this request is post => useMutation
-    e.preventDefault();
+    // e.preventDefault();
+    console.log(data);
     try {
-      const data = await mutateAsync({ phoneNumber: phoneNumber });
-      console.log(data);
+      // const data = await mutateAsync({ phoneNumber: phoneNumber });
+      const {message} = await mutateAsync(data);
       setStep(2);
-      toast.success(data.message);
+      toast.success(message);
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
   };
 
   const [step, setStep] = useState(2);
-  const [phoneNumber, setPhoneNumber] = useState("09141001872");
+  // const [phoneNumber, setPhoneNumber] = useState("09141001872");
+  const {register,handleSubmit,getValues}=useForm();
+  
   const renderStep = () => {
     switch (step) {
       case 1:
         return (
           <SendOTPform
             isSendingOtp={isSendingOtp}
-            onSubmit={sendOtpHandler}
+            onSubmit={handleSubmit(sendOtpHandler)}
             setStep={setStep}
-            phoneNumber={phoneNumber}
-            setPhoneNumber={setPhoneNumber}
+            register={register}
+            // onSubmit={sendOtpHandler}
+            // phoneNumber={phoneNumber}
+            // setPhoneNumber={setPhoneNumber}
           />
         );
       // return <SendOTPform setStep={setStep} phoneNumber={phoneNumber} onChange={(e)=>setPhoneNumber(e.target.value)}/>;
@@ -47,7 +54,8 @@ function AuthContainer() {
         return (
           <CheckOTPform
             onResendOtp={sendOtpHandler}
-            phoneNumber={phoneNumber}
+            phoneNumber={getValues("phoneNumber")}
+            // phoneNumber={phoneNumber}
             onBack={() => setStep((s) => s - 1)}
             otpResponse={otpResponse}
           />

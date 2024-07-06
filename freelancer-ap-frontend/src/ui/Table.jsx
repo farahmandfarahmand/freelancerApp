@@ -20,7 +20,7 @@ function Table({ children }) {
   }
   
   function TableRow({ children }) {
-    return <tr>{children}</tr>;
+    return <tr className="hover:bg-neutral-50">{children}</tr>;
   }
   
   Table.Header = TableHeader;

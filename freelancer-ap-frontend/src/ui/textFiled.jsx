@@ -1,21 +1,31 @@
-function TextFiled({ label, name, value, onChange }) {
+function TextField({
+  label,
+  name,
+  register,
+  validationSchema = {},
+  type = "text",
+  required,
+  errors,
+}) {
+  // console.log(register(name));
   return (
-    <div className="">
-      <label className="mb-1" htmlFor={name}>
-     
-        {label}
+    <div>
+      <label className="mb-2 block text-secondary-700" htmlFor={name}>
+        {label} {required && <span className="text-error">*</span>}
       </label>
       <input
-        value={value}
-        onChange={onChange}
+        {...register(name, validationSchema)}
         id={name}
-        className="textFiled__input"
-        type="text"
-        name={name}
+        className="textField__input"
+        type={type}
         autoComplete="off"
       />
+      {errors && errors[name] && (
+        <span className="text-error block text-sm mt-2">
+          {errors[name]?.message}
+        </span>
+      )}
     </div>
   );
 }
-
-export default TextFiled;
+export default TextField;

@@ -3,9 +3,8 @@ import Loading from "../../ui/Loading";
 import Empty from "../../ui/Empty";
 import Table from "../../ui/Table";
 // import ProjectRow from "./ProjectRow";
-import truncateText from "../../utils/truncateText";
-import toLocalDateShort from "../../utils/toLocalDateShort";
-import { toPersianNumbersWithComma } from "../../utils/toPersianNumbers";
+
+import ProjectRowTable from "./ProjectRowTable";
 
 function ProjectTable() {
   const { isLoading, projects } = useOwnerProjects();
@@ -15,48 +14,30 @@ function ProjectTable() {
   if (!projects.length) return <Empty resourceName="پروژه" />;
 
   return (
-    <Table>
-      <Table.Header>
-        <th>#</th>
-        <th>عنوان پروژه</th>
-        <th>دسنه‌بندی</th>
-        <th>بودجه</th>
-        <th>تگ‌ها</th>
-        <th>فریلنسر</th>
-        <th>وضعیت</th>
-        <th>عملیات</th>
-      </Table.Header>
-      <Table.Body>
-      {projects.map((project, index) => (
-            <tr key={project.id}>
-              <td>{index + 1}</td>
-              <td>{truncateText(project.title,30)}</td>
-              <td>{project.category.title}</td>
-              <td className="">{toPersianNumbersWithComma(project.budget)}</td>
-              <td>{toLocalDateShort(project.deadline)}</td>
-              <td>
-                <div className="flex flex-wrap  items-center gap-2 max-w-[200px]">
-                  {project.tags.map((tag) => (
-                    <span className="badge badge--secondary" key={tag}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </td>
-              <td>{project.freelancer?.name || "_"}</td>
-              <td>
-                {project.status === "OPEN" ? (
-                  <span className="badge badge--success">باز</span>
-                ) : (
-                  <span className="badge badge--danger">بسته</span>
-                )}
-              </td>
-              <td></td>
-              <td></td>
-            </tr>
+    <div className="rounded-xl overflow-hidden">
+      <Table>
+        <Table.Header>
+          <th>#</th>
+          <th>عنوان پروژه</th>
+          <th>دسنه‌بندی</th>
+          <th>بودجه</th>
+          <th>تگ‌ها</th>
+          <th>فریلنسر</th>
+          <th>وضعیت</th>
+          <th>عملیات</th>
+        </Table.Header>
+        <Table.Body>
+          {projects.map((project, index) => (
+            <ProjectRowTable
+              key={project._id}
+              project={project}
+              index={index}
+            
+            />
           ))}
-      </Table.Body>
-    </Table>
+        </Table.Body>
+      </Table>
+    </div>
   );
 }
 export default ProjectTable;
