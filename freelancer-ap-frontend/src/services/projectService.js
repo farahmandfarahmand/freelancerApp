@@ -20,3 +20,8 @@ export  function editProjectApi({id,newProject}) {
 export  function toggleProjectStatusApi({id,data}) {//data=>{status:open or close}
   return http.patch(`/project/${id}`,data).then(({ data }) => data.data);
 }
+
+export  function getProjectApi(id) {//data=>{status:open or close}
+  return http.get(`/project/${id}`).then(({ data }) => (data.data))
+
+}

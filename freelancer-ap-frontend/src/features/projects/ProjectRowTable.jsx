@@ -85,11 +85,17 @@ function ProjectRowTable({ project, index }) {
           </>
         </div>
       </td>
-      <td>
+      
+        {/* {
+          console.log(project._id)
+        } */}
+        <td>
         <Link to={project._id} className="flex justify-center">
           <HiEye className="w-5 h-5 text-primary-800" />
         </Link>
+ 
       </td>
+ 
     </Table.Row>
   );
 }
