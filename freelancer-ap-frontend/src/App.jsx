@@ -12,18 +12,21 @@ import AppLayout from "./ui/AppLayout";
 import OwnerDashboard from "./pages/OwnerDashboard";
 import Project from "./pages/Project";
 import Projects from "./pages/Projects";
+import { DarkModeProvider } from "./context/DarkModeContext";
+import OwnerLayout from "./features/owner/OwnerLayout";
 // Create a client
 const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+   <DarkModeProvider>
+     <QueryClientProvider client={queryClient}>
       <Toaster />
       <div className="">
         <Routes>
           <Route path="/auth" element={<Auth />} />
           <Route path="/complete-profile" element={<CompleteProfile />} />
-          <Route path="/owner"  element={<AppLayout/>}>
+          <Route path="/owner"  element={<OwnerLayout/>}>
             <Route index  element={<Navigate to="dashboard" replace />} />
             <Route path="dashboard"  element={<OwnerDashboard />} />
             <Route path="projects"  element={<Projects />} />
@@ -35,6 +38,7 @@ function App() {
         </Routes>
       </div>
     </QueryClientProvider>
+   </DarkModeProvider>
   );
 }
 
