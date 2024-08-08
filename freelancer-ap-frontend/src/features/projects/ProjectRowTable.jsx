@@ -35,9 +35,9 @@ function ProjectRowTable({ project, index }) {
           ))}
         </div>
       </td>
-      <td>{project.freelancer?.name || "_"}</td>
+      {/* <td>{project.freelancer?.name || "_"}</td> */}
       <td>
-        <ToggleProjectStatus project={project} />
+        <ToggleProjectStatus project={project} /> 
            {/* {project.status === "OPEN" ? (
           <span className="badge badge--success">باز</span>
         ) : (
