@@ -6,8 +6,11 @@ export default function useProposals() {
     queryKey: ["proposals"],
     queryFn: getProposalsApi,
   });
-
-  const { proposals } = data || {};
-  console.log("useproposal with call getProposalApi",proposals);
-  return { isLoading, proposals };
+  // if (error){
+  //   console.error("Error fetching proposals:", error);
+  // }
+  // const { proposals } = data || {};
+  console.log("useProposal is :", data);
+  
+  return { isLoading, proposals:data };
 }

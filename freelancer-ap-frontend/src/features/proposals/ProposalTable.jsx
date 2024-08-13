@@ -6,34 +6,27 @@ import useProposals from "./useProposals";
 
 function ProposalTable() {
   const { isLoading, proposals } = useProposals();
+console.log("proposals table is:" ,proposals);
 
   if (isLoading) return <Loading />;
 
-  if (!proposals?.length) return <Empty resourceName="پروپزال" />;
-console.log("proposals table",proposals?.length);
+  if (!proposals?.length) return <Empty resourceName="پروپوزال" />;
+
   return (
-    <div className="rounded-xl overflow-hidden">
-      <Table>
-        <Table.Header>
-          <th>#</th>
-          <th> توضیحات</th>
-          <th>زمان تحویل</th>
-          <th>زمان تحویل</th>
-          <th>هزینه</th>
-          <th>وضعیت</th>
-        </Table.Header>
-        <Table.Body>
-          {proposals.map((proposal, index) => (
-            <ProposalRow
-              key={proposal._id}
-              project={proposal}
-              index={index}
-            />
-          ))}
-        </Table.Body>
-      </Table>
-    </div>
+    <Table>
+      <Table.Header>
+        <th>#</th>
+        <th>توضیحات</th>
+        <th>زمان تحویل</th>
+        <th>هزینه</th>
+        <th>وضعیت</th>
+      </Table.Header>
+      <Table.Body>
+        {proposals.map((proposal, index) => (
+          <ProposalRow key={proposal._id} proposal={proposal} index={index} />
+        ))}
+      </Table.Body>
+    </Table>
   );
 }
-
 export default ProposalTable;

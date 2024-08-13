@@ -6,5 +6,9 @@ export  function changeProposalStatusApi({id,data}) {//data=>{status:open or clo
 
 
 export  function getProposalsApi() {//data=>{status:open or close}
-  return http.get(`/proposal/list`).then(({ data }) => console.log("proposal data:",data.data));
+  return http.get(`/proposal/list`).then(({ data }) => console.log("proposal data from server:",data.data));
+}
+
+export function createProposalApi(data) {
+  return http.post(`/proposal/add`, data).then(({ data }) => data.data);
 }
